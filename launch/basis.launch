@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+    <node pkg="ros_tutorial" type="ros_tutorial_image_subscriber" name="ros_tutorial_image_subscriber" output="screen"/>
+
+    <node pkg="ros_tutorial" type="ros_tutorial_image_publisher" name="ros_tutorial_image_publisher"/>
+</launch>

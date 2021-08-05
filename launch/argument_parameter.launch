@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+    <arg name="arg1" default="default_argument1"/>
+    <arg name="arg2" default="default_argument2"/>
+
+    <param name="param1" type="string" value="$(arg arg1)"/>
+    <!-- <param name="param2" value="$(arg arg2)"/> -->
+
+    <node pkg="ros_tutorial" type="ros_tutorial_image_subscriber" name="ros_tutorial_image_subscriber" output="screen" >
+        <param name="node_param" value="$(arg arg2)"/>
+    </node>
+
+</launch>
