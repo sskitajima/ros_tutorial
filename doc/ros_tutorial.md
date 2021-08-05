@@ -1,8 +1,30 @@
 # ROSチュートリアル第1回
 
-ROSのインストールは済ませているものとする。
+- 前提条件
+
+  - ROSのインストール
+
+  - 基本的なlinuxコマンドや操作
+
+    
 
 
+
+- 目的
+
+実際の開発の中でよく使われるであろうROS開発知識を、**ROSの概念やツールの包括的な説明を放棄することにより短時間で**、そして**実際に手を動かすことで確実に**身につけること。
+
+
+
+- 内容
+
+1. ROSのパブリッシャとサブスクライバを書く
+   - パッケージを作る
+   - 画像を読み込んでpublish
+   - 画像をsubscribeして保存
+2. launchファイルを書く
+   - 基本と、いくつかのタグの説明
+3. orb_slam2_rosに画像を与えてみる
 
 
 
@@ -58,7 +80,11 @@ mkdir image
 
 3. **CMakeLists.txtを更新する**
 
-cmakeの文法については様々なものがある。インストールしてプログラムを公開する際にはきちんと書かなければならないが、最低限必要なもののみの説明を以下に示す。
+cmakeの文法については様々なものがある。インストールしてプログラムを公開する際にはきちんと書かなければならないが、最低限以下が使えれば何かしらのブログラムは実行できるだろう。
+
+`cmake_minimum_required`
+
+`project`
 
 `find_package`
 
@@ -104,26 +130,58 @@ rosrun ros_tutorial ros_tutorial_image_subscriber
 
 ## 2.launchファイルの記述
 
- 
+ROSではノードを複数起動することが多い。launchファイルは、ROSのノードをまとめて起動するための設定ファイルであり、xml形式で記述される。複数のノードをまとめて起動する機能の他に、ROSシステムでのパラメータの設定、引数処理、インクルード処理、簡単な条件分岐などを行うことも可能である。
 
+1. `basis.launch`
+
+```bash
+# roslaunch [package name] [launch file name]
+roslaunch ros_tutorial argument_parameter.launch
 ```
-pkg...package name
-type...executable name
-name...ros node name 
-output...terminal output
+
+node要素に示された各属性値の意味は以下の通りである。
+
+pkg属性...パッケージ名
+
+type属性...実行ファイル名
+
+name属性...マスタに登録するノードの名前
+
+
+
+2. `argument_parameter.launch`
+
+arg要素を用いることで、引数を与えて実行させることができる。
+
+```bash
+# arg1に引数hogehogeを与える例
+roslaunch argument_parameter.launch arg1:=[hogehoge]
+```
+
+param要素を用いることで、launchファイルを実行する際にROSマスタにパラメータを登録することができる。
+
+nodeタグの中にparamを指定することもできる。この場合、パラメータの名前は`[ノード名]/[パラメータ名]`になる。namespaceの概念と同様に考えるとわかりやすい。このlaunchファイルを実行した後、以下のようなコマンドを実行することで確認することができる。
+
+```bash
+# マスタに登録されているパラメータを確認するコマンドの例
+rosparam list
+rosparam get [paramter name]
+rosparam set [aparameter name] [value]
 ```
 
 
+
+3. `include.launch`
+
+includeタグを用いることで、他のlaunchファイルの内容を取り込んで実行することができる。launchファイルを内容ごとに分割し、再利用しやすくする仕組みの一つである。
+
+---
+
+以上を踏まえた上で、`orb_slam2_ros`のパッケージのlaunchファイルを見ると理解が深まるだろう。
 
 ## 3.orb_slam2_rosでの実行
 
-orb_slam2_testの、トピック名のみを変える	
-
-
-
-```bash
-roslaunch orb_slam2_ros orb_slam2_test
-```
+orb_slam2_testの、トピック名のみを変えることで、今回作成したプログラムから画像を与えられることが確認できる。
 
 
 
@@ -145,9 +203,30 @@ ROSとは関係のない一般的な用語についての簡単なリファレ�
   他の実行ファイルから呼び出されて実行されるファイル
 - 依存関係
   あるプログラムの実行のために、別のプログラムの存在を必要としていること、そのことを前提としてプログラムが作られていること。
+- cmake
+
+- xmlファイル
+- yamlファイル
+
+### ROSの用語
+
+- マスタ
+  1つのROSシステム全体を管理するプログラム。`roscore`コマンドで起動するか、launchファイルを用いて自動的に起動させる。具体的に行っている処理の例としては、どの名前のどのノードがシステムで動いて動いているか、どのトピック、サービスが存在しているか、ROSシステムで登録されているパラメータは何がありどんな値なのか、シミュレーション時間か実時間かの管理、などが挙げられる。
+- トピック
+- ノード
+- パブリッシュ
+- サブスクライブ
 
 ### 参考資料
 
-ROSロボットプログラミングバイブル、オーム社
+- ROSロボットプログラミングバイブル、オーム社
 
-ROS公式HPのチュートリアル
+- ROS公式HPのチュートリアル
+  - [publisher subscriberを書く](http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29)
+  - [image_transportでpublishする](http://wiki.ros.org/image_transport/Tutorials/PublishingImages)
+  - [cv_bridge](http://wiki.ros.org/cv_bridge/Tutorials/UsingCvBridgeToConvertBetweenROSImagesAndOpenCVImages)
+  - [roslaunch](http://wiki.ros.org/roslaunch)
+
+## 最後に
+
+ここまで挙げてきた機能はほんの一部である。上記の参考資料や公式リファレンス、信頼性の高い公開パッケージなどで調べることでより便利なツールを学ぶことができる。
