@@ -8,7 +8,7 @@
 #include <opencv2/highgui.hpp>
 
 const char* topoic_name = "/ros_lecture/image";
-const char* path_to_save_image = "/home/kitajima/catkin_ws/src/ros_tutorial/image/save_image.png";
+const char* path_to_save_image = "/home/sskitajima/catkin_ws/src/ros_tutorial/image/save_image.png";
 
 void ImageCallback(const sensor_msgs::ImageConstPtr &img_msg)
 {
@@ -37,6 +37,15 @@ int main(int argc, char **argv)
     //     return -1;
     // }
     // topoic_name = argv[1];
+
+    if(argc == 2)
+    {
+        std::cout << "argument: " << argv[1] << std::endl; 
+    }
+    else
+    {
+        std::cout << "num arg " << argc <<  std::endl;
+    }
 
     ros::init(argc, argv, "ros_tutorial_image_subscriber");
     ROS_INFO("ros_tutorial_image_subscriber node start");

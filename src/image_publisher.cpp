@@ -15,8 +15,8 @@ int main(int argc, char **argv)
     const int loop_rate = 1;
     const char *topic_name = "/ros_lecture/image";
     const char *depth_topic_name = "/ros_lecture/depth_image";
-    const char *img_path = "/home/kitajima/catkin_ws/src/ros_tutorial/image/1622618594.196132.png";
-    const char *depth_img_path = "/home/kitajima/catkin_ws/src/ros_tutorial/image/1622618594.152518.png";
+    const char *img_path = "/home/sskitajima/catkin_ws/src/ros_tutorial/image/1622618594.196132.png";
+    const char *depth_img_path = "/home/sskitajima/catkin_ws/src/ros_tutorial/image/1622618594.152518.png";
     const int buf_size = 10;
     
     ros::NodeHandle nh;
