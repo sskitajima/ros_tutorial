@@ -1,5 +1,7 @@
 # ROSチュートリアル第1回
 
+## 0. はじめに
+
 - 前提条件
 
   - ROSのインストール
@@ -185,6 +187,8 @@ orb_slam2_testの、トピック名のみを変えることで、今回作成し
 
 
 
+## 4. 補足など
+
 ### プログラミング基礎用語
 
 ROSとは関係のない一般的な用語についての簡単なリファレンス。筆者の理解に基づくものなので、正確性は保証しない。
@@ -227,6 +231,6 @@ ROSとは関係のない一般的な用語についての簡単なリファレ�
   - [cv_bridge](http://wiki.ros.org/cv_bridge/Tutorials/UsingCvBridgeToConvertBetweenROSImagesAndOpenCVImages)
   - [roslaunch](http://wiki.ros.org/roslaunch)
 
-## 最後に
+### 最後に
 
 ここまで挙げてきた機能はほんの一部である。上記の参考資料や公式リファレンス、信頼性の高い公開パッケージなどで調べることでより便利なツールを学ぶことができる。
