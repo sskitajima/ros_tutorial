@@ -33,6 +33,7 @@ include_directories(
 add_executable(ros_tutorial_image_publisher src/image_publisher.cpp)
 add_executable(ros_tutorial_image_subscriber src/image_subscriber.cpp)
 
+add_executable(ros_tutorial_get_parameter src/get_parameter.cpp)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(ros_tutorial_image_publisher
@@ -40,5 +41,9 @@ target_link_libraries(ros_tutorial_image_publisher
 )
 
 target_link_libraries(ros_tutorial_image_subscriber
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(ros_tutorial_get_parameter
   ${catkin_LIBRARIES}
 )
