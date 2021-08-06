@@ -45,22 +45,6 @@ public:
 
 int main(int argc, char **argv)
 {
-    // if(argc != 2)
-    // {
-    //     std::cout << "usage: rosrun sandbox check_depth_type_node [topic_name]" << std::endl;
-    //     return -1;
-    // }
-    // topoic_name = argv[1];
-
-    if(argc == 2)
-    {
-        std::cout << "argument: " << argv[1] << std::endl; 
-    }
-    else
-    {
-        std::cout << "num arg " << argc <<  std::endl;
-    }
-
     ros::init(argc, argv, "ros_tutorial_image_subscriber_class");
     ROS_INFO("ros_tutorial_image_subscriber_class node start");
 

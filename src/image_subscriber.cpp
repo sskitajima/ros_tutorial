@@ -14,7 +14,7 @@ const char* path_to_save_image = "/home/sskitajima/catkin_ws/src/ros_tutorial/im
 // メッセージを受け取った（subscribe）したときに実行される関数
 void ImageCallback(const sensor_msgs::ImageConstPtr &img_msg)
 {
-    // opencvで画像を示す型
+    // opencvで画像を示す型を用意
     cv::Mat raw_img;
 
     const char* encoding = img_msg->encoding.c_str();
@@ -28,7 +28,7 @@ void ImageCallback(const sensor_msgs::ImageConstPtr &img_msg)
         // 画像を取り出す
         raw_img = cv_bridge::toCvShare(img_msg, "8UC3")->image;
 
-        // 保存
+        // 画像を指定されたパスに保存
         cv::imwrite(path_to_save_image, raw_img);
 
         std::cout << "save image " << std::endl;
@@ -38,22 +38,6 @@ void ImageCallback(const sensor_msgs::ImageConstPtr &img_msg)
 // http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28c%2B%2B%29
 int main(int argc, char **argv)
 {
-    // if(argc != 2)
-    // {
-    //     std::cout << "usage: rosrun sandbox check_depth_type_node [topic_name]" << std::endl;
-    //     return -1;
-    // }
-    // topoic_name = argv[1];
-
-    if(argc == 2)
-    {
-        std::cout << "argument: " << argv[1] << std::endl; 
-    }
-    else
-    {
-        std::cout << "num arg " << argc <<  std::endl;
-    }
-
     ros::init(argc, argv, "ros_tutorial_image_subscriber");
     ROS_INFO("ros_tutorial_image_subscriber node start");
 
@@ -65,7 +49,7 @@ int main(int argc, char **argv)
     image_transport::ImageTransport it(nh);
     image_transport::Subscriber sub = it.subscribe(topoic_name, 1, ImageCallback);
 
-    // 処理を一時停止し、サブスクライブされるのを待つ
+    // 処理をこの行でブロックし、サブスクライブされるのを待ち続ける
     ros::spin();
 
 

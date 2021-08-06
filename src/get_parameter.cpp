@@ -10,7 +10,9 @@ int main(int argc, char* argv[])
 
     std::string param1, param2;
     
+    // param1という名前のパラメータを取得、最後の引数はデフォルト値
     nh.param("param1", param1, std::string("get_parameter_sample_node"));
+
     nh.param("/ros_tutorial_image_subscriber/node_param", param2, std::string("get_paramter_sample_node"));
     
     std::cout << "[parameter]" << std::endl;
