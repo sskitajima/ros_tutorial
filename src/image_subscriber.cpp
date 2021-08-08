@@ -8,7 +8,7 @@
 #include <opencv2/highgui.hpp>
 
 // global変数として定義（大きなプログラムではあまり良い書き方ではない）
-const char* topoic_name = "/ros_lecture/image";
+const char* topic_name = "/ros_lecture/image";
 const char* path_to_save_image = "/home/sskitajima/catkin_ws/src/ros_tutorial/image/save_image.png";
 
 // メッセージを受け取った（subscribe）したときに実行される関数
@@ -19,7 +19,7 @@ void ImageCallback(const sensor_msgs::ImageConstPtr &img_msg)
 
     const char* encoding = img_msg->encoding.c_str();
 
-    ROS_INFO("topic %s, encoding %s", topoic_name, encoding);
+    ROS_INFO("topic %s, encoding %s", topic_name, encoding);
 
     // 2つの文字列が等しいときに 0 を返す関数 strcmp
     // もし8but rgbの画像だったとき、処理を行う
@@ -47,7 +47,7 @@ int main(int argc, char **argv)
     // サブスクライバの定義
     // サブスクライブしたときに実行される、関数を登録しておく。
     image_transport::ImageTransport it(nh);
-    image_transport::Subscriber sub = it.subscribe(topoic_name, 1, ImageCallback);
+    image_transport::Subscriber sub = it.subscribe(topic_name, 1, ImageCallback);
 
     // 処理をこの行でブロックし、サブスクライブされるのを待ち続ける
     ros::spin();

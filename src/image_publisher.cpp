@@ -42,24 +42,26 @@ int main(int argc, char **argv)
     ros::Rate r(loop_rate);
     int cnt = 0;
 
-    // 画像の内容と、ヘッダも一緒に送るので、ヘッダを定義
-    // 現在時刻をタイムスタンプとしておく
-    std_msgs::Header header;
-    header.stamp = ros::Time::now();
-
-    // 画像をopencvを用いて読み込み、それをROSの方に変換する
-    // 画像の場合は cv_bridgeという専用のパッケージを用いて変換する
-    // http://wiki.ros.org/image_transport/Tutorials/PublishingImages
-    // http://wiki.ros.org/cv_bridge/Tutorials/UsingCvBridgeToConvertBetweenROSImagesAndOpenCVImages
+    // rgb画像とdepth画像をopencvを用いて読み込む
     cv::Mat image = cv::imread(img_path, cv::IMREAD_UNCHANGED);
-    sensor_msgs::ImagePtr msg = cv_bridge::CvImage(header, "bgr8", image).toImageMsg();
-
     cv::Mat depth_image = cv::imread(depth_img_path, cv::IMREAD_UNCHANGED);
-    sensor_msgs::ImagePtr depth_msg = cv_bridge::CvImage(header, "mono16", depth_image).toImageMsg();
 
     // ctrl+C などでノードが停止するまでループ
     while (ros::ok())
     {
+        // 画像の内容と、ヘッダも一緒に送るので、ヘッダを定義
+        // 現在時刻をタイムスタンプとしておく
+        std_msgs::Header header;
+        header.stamp = ros::Time::now();
+    
+        // ROSで画像を示すメッセージを作る
+        // 画像の場合は cv_bridgeという専用のパッケージを用いて変換する
+        // http://wiki.ros.org/image_transport/Tutorials/PublishingImages
+        // http://wiki.ros.org/cv_bridge/Tutorials/UsingCvBridgeToConvertBetweenROSImagesAndOpenCVImages
+        // http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Image.html
+        sensor_msgs::ImagePtr msg = cv_bridge::CvImage(header, "bgr8", image).toImageMsg();
+        sensor_msgs::ImagePtr depth_msg = cv_bridge::CvImage(header, "mono16", depth_image).toImageMsg();
+
         // publish
         image_publisher.publish(msg);
         depth_image_publisher.publish(depth_msg);

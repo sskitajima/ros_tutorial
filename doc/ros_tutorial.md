@@ -177,7 +177,7 @@ ROSではノードを複数起動することが多い。launchファイルは�
 ```bash
 # 同時に2つのノードを起動するlaunchファイル basis.launch を起動する
 # roslaunch [package name] [launch file name]
-roslaunch ros_tutorial argument_parameter.launch
+roslaunch ros_tutorial basis.launch
 ```
 
 ファイル内について簡単に説明する。node要素に示された各属性値の意味は以下の通りである。
@@ -353,8 +353,11 @@ ROSとは関係のない一般的な用語についての簡単なリファレ�
 - 依存関係
   あるプログラムの実行のために、別のプログラムの存在を必要としていること、そのことを前提としてプログラムが作られていること。
 - cmake
+  ビルド設定ツールの名称。cmake自体はROSに依存しないツールであり、クロスプラットフォーム（windowsでもlinuxでも使用可能）である。ソースコードの場所、ヘッダファイルの場所、ライブラリの場所、インストールする場合の場所など、プログラムのビルドには多くの設定ファイルを必要とする。cmakeを使用するとそれらをOSに依存しない形で記述することができる。記述にはcmake独自の文法を用いる。
 - xmlファイル
+  ファイル形式の1つ。構造化データをタグと属性を用い記述する。
 - yamlファイル
+  ファイル形式の1つ。xmlと同じように構造化データを記述することができる。
 
 
 
@@ -366,6 +369,8 @@ ROSとは関係のない一般的な用語についての簡単なリファレ�
 - ノード
 - パブリッシュ
 - サブスクライブ
+- メッセージ
+  
 
 
 
@@ -379,7 +384,8 @@ ROSとは関係のない一般的な用語についての簡単なリファレ�
   - [cv_bridge](http://wiki.ros.org/cv_bridge/Tutorials/UsingCvBridgeToConvertBetweenROSImagesAndOpenCVImages)
   - [CMakeLists.txt](http://wiki.ros.org/ja/catkin/CMakeLists.txt)
   - [roslaunch](http://wiki.ros.org/roslaunch)
-
+  - [sensor_msgs::Image](http://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/Image.html)
+  
 - [orb_slam2_ros](https://github.com/appliedAI-Initiative/orb_slam_2_ros)
 
 
